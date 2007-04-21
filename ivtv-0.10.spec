@@ -4,7 +4,7 @@
 Summary: An iTVC15/16 and CX23415/16 driver
 Name: %{module}-0.10
 Version: %{version}
-Release:  %mkrel 1
+Release:  %mkrel 2
 License: GPL
 Group: System/Kernel and hardware
 Obsoletes:	ivtv-stable
@@ -83,8 +83,8 @@ PACKAGE_VERSION="%{version}-%{release}"
 
 # Items below here should not have to change with each driver version
 PACKAGE_NAME="%{module}"
-MAKE[0]="src=/usr/src/${PACKAGE_NAME}-${PACKAGE_VERSION}/ ; make"
-CLEAN="make clean"
+MAKE[0]="make -C ${kernel_source_dir} SUBDIRS=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build modules"
+CLEAN="make -C ${kernel_source_dir} SUBDIRS=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build clean"
 
 BUILT_MODULE_NAME[0]="ivtv"
 #BUILT_MODULE_NAME[1]="ivtv-fb"
