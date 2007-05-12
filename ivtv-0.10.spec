@@ -4,7 +4,7 @@
 Summary: An iTVC15/16 and CX23415/16 driver
 Name: %{module}-0.10
 Version: %{version}
-Release:  %mkrel 2
+Release:  %mkrel 3
 License: GPL
 Group: System/Kernel and hardware
 Obsoletes:	ivtv-stable
@@ -15,7 +15,7 @@ Requires: kernel >= 2.6.18
 Requires: perl-Video-ivtv
 Requires: perl-Video-Frequencies
 Source0: http://dl.ivtvdriver.org/ivtv/stable/%{module}-%{version}.tar.bz2
-#Source0: http://dl.ivtvdriver.org/ivtv/unstable/%{module}-%{version}rc1.tar.bz2
+Source1: ivtv-2.6.21.patch
 Patch0:	ivtv-0.2.0-rc3i-utils_Makefile.patch
 Patch1: ivtv-0.2.0-rc3j-software_suspend.patch
 Patch2:	ivtv-0.4.1-driver_compat.h.patch
@@ -72,19 +72,26 @@ fi
 
 # DKMS
 mkdir -p $RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}
-
 cp -frv	driver/* \
 	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}
-#	i2c-drivers/upd640xx.h \
 cp -fv	utils/videodev2.h \
 	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}
+mkdir -p $RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/i2c-drivers
+cp -frv	i2c-drivers/* \
+	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/i2c-drivers
+mkdir -p $RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/patches
+cp %{SOURCE1} \
+	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/patches
+
 cat > %{buildroot}/usr/src/%{module}-%{version}-%{release}/dkms.conf <<EOF
 PACKAGE_VERSION="%{version}-%{release}"
+PATCH[0]="ivtv-2.6.21.patch"
+PATCH_MATCH[0]="2\.6\.21.*"
 
 # Items below here should not have to change with each driver version
 PACKAGE_NAME="%{module}"
-MAKE[0]="make -C ${kernel_source_dir} SUBDIRS=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build modules"
-CLEAN="make -C ${kernel_source_dir} SUBDIRS=${dkms_tree}/${PACKAGE_NAME}/${PACKAGE_VERSION}/build clean"
+MAKE[0]="make -C \${kernel_source_dir} SUBDIRS=\${dkms_tree}/\${PACKAGE_NAME}/\${PACKAGE_VERSION}/build modules"
+CLEAN="make -C i\${kernel_source_dir} SUBDIRS=\${dkms_tree}/\${PACKAGE_NAME}/\${PACKAGE_VERSION}/build clean"
 
 BUILT_MODULE_NAME[0]="ivtv"
 #BUILT_MODULE_NAME[1]="ivtv-fb"
