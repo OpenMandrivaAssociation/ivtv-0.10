@@ -4,7 +4,7 @@
 Summary: An iTVC15/16 and CX23415/16 driver
 Name: %{module}-0.10
 Version: %{version}
-Release:  %mkrel 1
+Release:  %mkrel 2
 License: GPL
 Group: System/Kernel and hardware
 Obsoletes:	ivtv-stable
@@ -15,10 +15,6 @@ Requires: kernel >= 2.6.18
 Requires: perl-Video-ivtv
 Requires: perl-Video-Frequencies
 Source0: http://dl.ivtvdriver.org/ivtv/stable/%{module}-%{version}.tar.bz2
-Source1: ivtv-2.6.21.patch
-Patch0:	ivtv-0.2.0-rc3i-utils_Makefile.patch
-Patch1: ivtv-0.2.0-rc3j-software_suspend.patch
-Patch2:	ivtv-0.4.1-driver_compat.h.patch
 Patch3:	ivtv-0.4.0-utils_Makefile.patch
 Patch4:	ivtv-0.4.1-ivtvfwextract.patch
 URL: http://ivtvdriver.org/
@@ -52,9 +48,6 @@ This package provides dkms kernel drivers for this hardware
 %prep
 %setup -q -n %{module}-%{version}
 #setup -q -n %{module}-%{version}rc1
-#patch0 -p1
-#patch1 -p1
-#patch2 -p0
 %patch3 -p0
 %patch4 -p0
 
@@ -79,14 +72,9 @@ cp -fv	utils/videodev2.h \
 mkdir -p $RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/i2c-drivers
 cp -frv	i2c-drivers/* \
 	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/i2c-drivers
-mkdir -p $RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/patches
-cp %{SOURCE1} \
-	$RPM_BUILD_ROOT/usr/src/%{module}-%{version}-%{release}/patches
 
 cat > %{buildroot}/usr/src/%{module}-%{version}-%{release}/dkms.conf <<EOF
 PACKAGE_VERSION="%{version}-%{release}"
-PATCH[0]="ivtv-2.6.21.patch"
-PATCH_MATCH[0]="2\.6\.21.*"
 
 # Items below here should not have to change with each driver version
 PACKAGE_NAME="%{module}"
@@ -140,5 +128,3 @@ dkms install -m	%{module} -v %{version}-%{release} --rpm_safe_upgrade
 
 %preun -n dkms-%{name}
 dkms remove -m	%{module} -v %{version}-%{release} --rpm_safe_upgrade --all
-
-
