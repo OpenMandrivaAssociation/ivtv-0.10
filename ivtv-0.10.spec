@@ -1,10 +1,10 @@
 %define module ivtv
-%define version 0.10.1
+%define version 0.10.2
 
 Summary: An iTVC15/16 and CX23415/16 driver
 Name: %{module}-0.10
 Version: %{version}
-Release:  %mkrel 3
+Release:  %mkrel 1
 License: GPL
 Group: System/Kernel and hardware
 Obsoletes:	ivtv-stable
