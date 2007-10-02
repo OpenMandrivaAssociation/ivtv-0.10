@@ -4,7 +4,7 @@
 Summary: An iTVC15/16 and CX23415/16 driver
 Name: %{module}-0.10
 Version: %{version}
-Release:  %mkrel 2
+Release:  %mkrel 3
 License: GPL
 Group: System/Kernel and hardware
 Obsoletes:	ivtv-stable
