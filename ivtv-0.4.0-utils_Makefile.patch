@@ -1,0 +1,8 @@
+--- utils/Makefile.orig	2005-10-09 22:03:15.000000000 +0200
++++ utils/Makefile	2005-10-09 22:03:23.000000000 +0200
+@@ -1,4 +1,4 @@
+-PREFIX = /usr/local
++PREFIX = /usr
+ BINDIR = $(PREFIX)/bin
+ HDRDIR = /usr/include/linux
+ 

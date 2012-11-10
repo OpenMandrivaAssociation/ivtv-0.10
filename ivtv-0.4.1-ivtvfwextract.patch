@@ -1,0 +1,13 @@
+--- utils/ivtvfwextract.pl.orig	2005-12-21 14:24:45.000000000 +0100
++++ utils/ivtvfwextract.pl	2005-12-21 14:48:20.000000000 +0100
+@@ -62,8 +62,8 @@
+ 
+ $default_readpath = "/mnt/cdrom";
+ $default_destpath = "/lib/modules";
+-$default_encname = "ivtv-fw-enc";
+-$default_decname = "ivtv-fw-dec";
++$default_encname = "v4l-cx2341x-enc.fw";
++$default_decname = "v4l-cx2341x-dec.fw";
+ sub bye;
+ 
+ # There's no useful version string to grep for, so let's just key off
