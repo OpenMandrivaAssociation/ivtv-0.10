@@ -17,7 +17,7 @@ Requires: perl-Video-Frequencies
 Source0: http://dl.ivtvdriver.org/ivtv/stable/%{module}-%{version}.tar.bz2
 Patch3:	ivtv-0.4.0-utils_Makefile.patch
 Patch4:	ivtv-0.4.1-ivtvfwextract.patch
-URL: http://ivtvdriver.org/
+URL: https://ivtvdriver.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root/
 
 %description
