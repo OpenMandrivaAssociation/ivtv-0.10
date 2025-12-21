@@ -20,6 +20,7 @@ Patch4:	ivtv-0.4.1-ivtvfwextract.patch
 URL: https://ivtvdriver.org/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root/
 
+BuildRequires:	make
 %description
 The primary goal of the IvyTV Project is to create a kernel driver for
 the iTVC15 familiy of MPEG codecs. The iTVC15 family includes the
